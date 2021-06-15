@@ -1,7 +1,5 @@
-const RutenAPI = require('./ruten_api');
+require('./ruten_api');
 
 exports.printMsg = function () {
   console.log('This is a message from the shopping-radar-sharedcode.');
 };
-
-exports.RutenAPI = RutenAPI;
