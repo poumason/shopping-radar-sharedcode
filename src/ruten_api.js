@@ -126,5 +126,4 @@ class RutenAPI {
   }
 }
 
-// module.exports = RutenAPI;
-exports.RutenAPI = RutenAPI;
+module.exports = RutenAPI;
