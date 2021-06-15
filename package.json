@@ -1,0 +1,49 @@
+{
+  "name": "shopping-radar-sharedcode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poumason/shopping-radar-sharedcode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/poumason/shopping-radar-sharedcode/issues"
+  },
+  "homepage": "https://github.com/poumason/shopping-radar-sharedcode#readme",
+  "dependencies": {
+    "airtable": "^0.11.1",
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.10",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-config-semistandard": "15.0.1",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^5.0.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "semistandard"
+    ],
+    "rules": {
+      "no-console": "off"
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  }
+}
