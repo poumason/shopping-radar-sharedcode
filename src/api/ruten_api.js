@@ -1,6 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const { isAvailablePrice } = require('./utility');
+const { isAvailablePrice } = require('../utility');
 
 class RutenAPI {
   async check2 (productId, url) {
@@ -126,4 +126,4 @@ class RutenAPI {
   }
 }
 
-module.exports = RutenAPI;
+module.exports = { RutenAPI };

@@ -18,4 +18,4 @@ class TelegramAPI {
   }
 }
 
-module.exports = TelegramAPI;
+module.exports = { TelegramAPI };
