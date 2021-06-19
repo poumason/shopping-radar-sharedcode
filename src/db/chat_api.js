@@ -11,15 +11,20 @@ class ChatAPI extends AirtableAPI {
       filterByFormula.push(`{bot_type}="${botType}"`);
     }
 
-    let query = null;
+    let query = '';
 
-    if (filterByFormula.length > 0) {
-      query = {
-        params: filterByFormula.join('&')
-      };
+    if (filterByFormula.length > 1) {
+      query = `AND(${filterByFormula.join(',')})`;
+    } else {
+      query = filterByFormula[0];
     }
 
-    const response = await this.instance.get('/Chats', query);
+    const response = await this.instance.get('/Chats', {
+      params: {
+        filterByFormula: query
+      }
+    });
+
     return response.data;
   }
 
