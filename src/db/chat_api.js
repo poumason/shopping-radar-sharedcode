@@ -33,7 +33,7 @@ class ChatAPI extends AirtableAPI {
       records: [
         {
           fields: {
-            chat_id: chatId,
+            chat_id: chatId.toString(),
             bot_type: botType,
             Radar: radars
           }
