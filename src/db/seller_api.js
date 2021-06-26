@@ -1,9 +1,13 @@
 const AirtableAPI = require('./airtable_api');
 
 class SellerAPI extends AirtableAPI {
+  constructor () {
+    super();
+    this.table = this.base('Seller');
+  }
+
   async getSellers () {
-    const response = await this.instance.get('/Seller');
-    return response.data;
+    return await this.read();
   }
 }
 

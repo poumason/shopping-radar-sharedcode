@@ -1,18 +1,17 @@
 const AirtableAPI = require('./airtable_api');
 
 class RadarTableAPI extends AirtableAPI {
+  constructor () {
+    super();
+    this.table = this.base('Radar');
+  }
+
   async getRadars () {
-    const response = await this.instance.get('/Radar');
-    return response.data;
+    return await this.read();
   }
 
   async createRadar (item) {
-    const response = await this.instance.post('/Radar', {
-      records: [
-        item
-      ]
-    });
-    return response.data;
+    return await this.add([item]);
   }
 }
 
