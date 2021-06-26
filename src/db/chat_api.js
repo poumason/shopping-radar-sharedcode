@@ -1,6 +1,11 @@
 const AirtableAPI = require('./airtable_api');
 
 class ChatAPI extends AirtableAPI {
+  constructor () {
+    super();
+    this.table = this.base('Chats');
+  }
+
   async getChats (chatId, botType) {
     const filterByFormula = [];
     if (chatId) {
@@ -19,33 +24,23 @@ class ChatAPI extends AirtableAPI {
       query = filterByFormula[0];
     }
 
-    const response = await this.instance.get('/Chats', {
-      params: {
-        filterByFormula: query
-      }
-    });
-
-    return response.data;
+    return await this.read({ filterByFormula: query });
   }
 
   async addChat (chatId, botType, radars) {
-    const response = await this.instance.post('/Chats', {
-      records: [
-        {
-          fields: {
-            chat_id: chatId.toString(),
-            bot_type: botType,
-            Radar: radars
-          }
-        }
-      ]
-    });
+    const response = await this.add([{
+      fields: {
+        chat_id: chatId.toString(),
+        bot_type: botType,
+        Radar: radars
+      }
+    }]);
     return response.data;
   }
 
   async removeChat (chatId) {
-    const response = await this.instance.delete(`/Chats/${chatId}`);
-    return response.data;
+    const deleted = await this.delete([chatId]);
+    return deleted;
   }
 }
 
