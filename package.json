@@ -4,7 +4,8 @@
   "description": "",
   "main": "./src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage",
+    "testwatch": "jest --watchAll --coverage"
   },
   "repository": {
     "type": "git",
@@ -27,23 +28,34 @@
     "eslint-config-semistandard": "15.0.1",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^5.0.0"
+    "eslint-plugin-standard": "^5.0.0",
+    "jest": "^27.0.5"
   },
   "eslintConfig": {
     "root": true,
     "env": {
-      "node": true
+      "node": true,
+      "jest/globals": true
     },
     "extends": [
       "semistandard"
     ],
     "rules": {
-      "no-console": "off"
+      "no-console": "off",
+      "jest/no-disabled-tests": "warn",
+      "jest/no-focused-tests": "error",
+      "jest/no-identical-title": "error",
+      "jest/prefer-to-have-length": "warn",
+      "jest/valid-expect": "error"
     },
     "parserOptions": {
       "parser": "babel-eslint"
-    }
+    },
+    "plugins": [
+      "jest"
+    ]
   }
 }

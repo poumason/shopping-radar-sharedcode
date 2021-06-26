@@ -11,9 +11,10 @@ class TelegramAPI {
         disable_web_page_preview: true,
         disable_notification: silently
       });
-      console.log(response.data);
+      return response.data;
     } catch (error) {
-      console.error(error);
+      // console.warn(error);
+      return null;
     }
   }
 }
