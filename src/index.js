@@ -1,6 +1,3 @@
-
-const db = require('./db/index');
-
 module.exports = {
   ...require('./utility'),
   // api
@@ -8,5 +5,5 @@ module.exports = {
   // bot
   ...require('./bot/telegram_api'),
   // db
-  db
+  ...require('./db/index')
 };
