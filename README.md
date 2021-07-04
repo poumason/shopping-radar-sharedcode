@@ -5,8 +5,9 @@ The repo is library to support the Shopping Radar project.
 
 ## How use it
 - Add it by GitHub(https)
-   > npm install https://github.com/poumason/shopping-radar-sharedcode.git#master
-
+  > npm install https://github.com/poumason/shopping-radar-sharedcode.git#master
+- Prepare env variables
+  > cp .env.example .env
 
 ## How to debug it
 - Clone the repo
