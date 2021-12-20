@@ -113,7 +113,7 @@ class RutenAPI {
     return response.data;
   }
 
-  async getProdcutsInfo (productIds) {
+  async getProductsInfo (productIds) {
     const ids = productIds.join(',');
 
     const response = await axios.get('https://rtapi.ruten.com.tw/api/prod/v2/index.php/prod', {

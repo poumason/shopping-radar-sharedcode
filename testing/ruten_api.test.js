@@ -7,11 +7,19 @@ beforeEach(() => {
 });
 
 test('getSearchProducts', async () => {
-  const result = await api.getSearchProducts(2353693, '假面騎士');
-  expect(result).not.toBeNull();
+  const ids = [
+    2353693, 1781003, 1628541, 2425045, 18077192, 13223531, 2779276, 6109326,
+    4807293
+  ];
+
+  for (const id of ids) {
+    console.log(id);
+    const result = await api.getSearchProducts(id, '假面騎士');
+    expect(result).not.toBeNull();
+  }
 });
 
-test('getProdcutsInfo', async () => {
-  const result = await api.getProdcutsInfo([22105869879063]);
+test('getProductsInfo', async () => {
+  const result = await api.getProductsInfo([22105869879063]);
   expect(result).not.toBeNull();
 });
