@@ -1,3 +1,4 @@
+require('dotenv').config();
 const axios = require('axios');
 
 class TelegramAPI {
@@ -13,7 +14,7 @@ class TelegramAPI {
       });
       return response.data;
     } catch (error) {
-      // console.warn(error);
+      console.warn(error);
       return null;
     }
   }

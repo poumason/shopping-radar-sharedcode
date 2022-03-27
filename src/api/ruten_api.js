@@ -1,3 +1,4 @@
+require('dotenv').config();
 const axios = require('axios');
 const cheerio = require('cheerio');
 const { isAvailablePrice } = require('../utility');
@@ -103,7 +104,7 @@ class RutenAPI {
   // }
 
   async getSearchProducts (sellerId, keyword) {
-    const response = await axios.get(`https://rtapi.ruten.com.tw/api/search/v3/index.php/core/seller/${sellerId}/prod`, {
+    const response = await axios.get(`${process.env.RUTEN_API_HOST}/search/v3/index.php/core/seller/${sellerId}/prod`, {
       params: {
         sort: 'new/dc',
         q: keyword
@@ -116,7 +117,7 @@ class RutenAPI {
   async getProductsInfo (productIds) {
     const ids = productIds.join(',');
 
-    const response = await axios.get('https://rtapi.ruten.com.tw/api/prod/v2/index.php/prod', {
+    const response = await axios.get(`${process.env.RUTEN_API_HOST}}/api/prod/v2/index.php/prod`, {
       params: {
         id: ids
       }
