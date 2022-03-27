@@ -117,7 +117,7 @@ class RutenAPI {
   async getProductsInfo (productIds) {
     const ids = productIds.join(',');
 
-    const response = await axios.get(`${process.env.RUTEN_API_HOST}}/api/prod/v2/index.php/prod`, {
+    const response = await axios.get(`${process.env.RUTEN_API_HOST}/api/prod/v2/index.php/prod`, {
       params: {
         id: ids
       }
