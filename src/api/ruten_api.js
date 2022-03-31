@@ -1,6 +1,5 @@
 require('dotenv').config();
 const axios = require('axios');
-const cheerio = require('cheerio');
 const { isAvailablePrice } = require('../utility');
 
 class RutenAPI {
@@ -47,104 +46,29 @@ class RutenAPI {
     return response.data;
   }
 
-  async check2 (productId) {
-    const infoResult = await this.getProductsInfo([productId]);
-    // console.log(infoResult);
+  async validateProduct (productId, ignoreTags) {
+    const result = await this.getProductsInfo([productId]);
 
-    if (!infoResult || infoResult.length === 0) {
+    if (!result || result.length === 0) {
       console.log(`Can not get information of product: ${productId}`);
       return false;
     }
 
-    const info = infoResult[0];
+    const product = result[0];
     // info fields: ProdId, ProdName, PriceRange, StockQty, SoldQty
-    console.log(info);
-    const validatedPrice = isAvailablePrice(Math.max(...info.PriceRange));
+    console.log(product);
+    const validatedPrice = isAvailablePrice(Math.max(...product.PriceRange), ignoreTags);
 
-    // 檢查金額是否正常
+    // check price is validated
     if (!validatedPrice) {
-      console.log(`${info.ProdName} 未開賣.`);
+      console.log(`${product.ProdName} is not enabled.`);
       return false;
     }
 
-    // 檢查是否還有數量
-    console.log(`${info.ProdName} 是否可以購買: ${info.StockQty > info.SoldQty}`);
-    return info.StockQty > info.SoldQty;
+    // check count is full
+    console.log(`${product.ProdName} is full count? ${product.StockQty > product.SoldQty}`);
+    return product.StockQty > product.SoldQty;
   }
-
-  async check (productId, url) {
-    const response = await axios.get(url);
-    console.log(`status code: ${response.status}`);
-    // const isReserve = this._getEnableReserve(productId, response.data);
-    const isSale = this._getEnableSale(productId, response.data);
-
-    console.log(`是否可以購買: ${isSale}`);
-
-    return isSale;
-  }
-
-  _getEnableSale (productId, html) {
-    let enableSale = false;
-    const $ = cheerio.load(html);
-    $('script').each((i, elem) => {
-      const text = $(elem).html();
-      const str = 'RT.context = ';
-
-      if (text.indexOf(str) >= 0) {
-        // console.log('got it');
-        const strJson = text.substr(text.indexOf(str) + str.length).replace(';', '');
-        const json = JSON.parse(strJson);
-        // console.log(json);
-        const item = json.item;
-        // console.log(item);
-
-        const isSeller = json.isSeller || !1;
-        const isSoldEnd = item.isSoldEnd || !1;
-        const isSoldOut = (item.remainNum || 0) <= 0;
-        const showBuyerSoldOutBlock = !isSeller && isSoldOut;
-        const gMode = item.mode || 'B';
-        const isPreviewMode = !1;
-        const showBidBlock = gMode === 'A' && !isSoldOut && !isSoldEnd;
-        const showBidSoldEndMessage = (gMode === 'A' && isPreviewMode) || (!showBidBlock && gMode === 'A');
-
-        enableSale = isSoldEnd || !showBuyerSoldOutBlock || showBidSoldEndMessage;
-      }
-    });
-
-    return enableSale;
-  }
-
-  // _getEnableReserve (productId, html) {
-  //   let enableReserve = false;
-  //   const $ = cheerio.load(html);
-  //   $('div').each((i, elem) => {
-  //     const $script = $(elem).find('script');
-
-  //     if ($script.attr('type') === 'application/ld+json') {
-  //       const json = JSON.parse($script.html());
-
-  //       if (json) {
-  //         const _product = json['@type'];
-  //         const _id = json.productId;
-  //         const _name = json.name;
-
-  //         if (_product.toLowerCase() === 'product' && _id === productId) {
-  //           // 金額異常高為額滿商品請勿下標 ( 例:尾數XXX9999 或 XXX0000)
-  //           const price = json.offers.price;
-  //           const lastNumber = price.substr(price.length - 4);
-  //           if (lastNumber === '9999' || lastNumber === '0000') {
-  //             console.log(`${_name} 未開賣`);
-  //             enableReserve = false;
-  //           } else {
-  //             console.log(`${_name} 開賣`);
-  //             enableReserve = true;
-  //           }
-  //         }
-  //       }
-  //     }
-  //   });
-  //   return enableReserve;
-  // }
 }
 
 module.exports = { RutenAPI };
