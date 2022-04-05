@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/poumason/shopping-radar-sharedcode#readme",
   "dependencies": {
+    "@line/bot-sdk": "^7.4.0",
     "airtable": "^0.11.2",
     "axios": "^0.21.3",
     "cheerio": "^1.0.0-rc.10",
