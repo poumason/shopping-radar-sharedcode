@@ -18,4 +18,4 @@ class LINEAPI {
   }
 }
 
-module.exports = LINEAPI;
+module.exports = { LINEAPI };
