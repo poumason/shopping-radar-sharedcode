@@ -1,21 +1,39 @@
 require('dotenv').config();
-const axios = require('axios');
+const line = require('@line/bot-sdk');
 
 class LINEAPI {
-  static async notifyByLINE (chatId, message) {
-    const instance = axios.create({
-      headers: {
-        Authorization: `Bearer ${process.env.LINE_BOT_CHANNEL_TOKEN}`,
-        'Content-Type': 'application/json'
-      }
+  constructor () {
+    this.client = new line.Client({
+      channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN
     });
+  }
 
-    try {
-      console.log((await instance.post('https://api.line.me/v2/bot/message/push', message)).data);
-    } catch (error) {
-      console.error(error);
+  async push (roomIDs, messageObj) {
+    if (roomIDs && roomIDs.length > 0) {
+      roomIDs.forEach(async (roomID) => {
+        console.log(roomID);
+        await this.client.pushMessage(roomID, messageObj);
+      });
     }
   }
+
+  // static async notify (chatId, message) {
+  //   console.log(process.env.LINE_BOT_CHANNEL_TOKEN);
+  //   const instance = axios.create({
+  //     headers: {
+  //       Authorization: `Bearer ${process.env.LINE_BOT_CHANNEL_TOKEN}`,
+  //       'Content-Type': 'application/json'
+  //     }
+  //   });
+
+  //   try {
+  //     const response = await instance.post('https://api.line.me/v2/bot/message/push', message);
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error(error);
+  //     return null;
+  //   }
+  // }
 }
 
 module.exports = LINEAPI;
