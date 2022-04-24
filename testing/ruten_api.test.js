@@ -15,11 +15,13 @@ test('getSearchProducts', async () => {
   for (const id of ids) {
     console.log(id);
     const result = await api.getSearchProducts(id, '假面騎士');
+    console.log(result);
     expect(result).not.toBeNull();
   }
 });
 
 test('getProductsInfo', async () => {
-  const result = await api.getProductsInfo([22105869879063]);
+  const result = await api.getProductsInfo([22212271356812]);
+  console.log(result);
   expect(result).not.toBeNull();
 });
